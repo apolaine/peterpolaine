@@ -32,4 +32,4 @@ His printmaking and painting ran alongside each other throughout his working lif
 
 > I have found over a period of time when painting that the first stages had been nearer to what I wanted to achieve, which is of course a moving target. These recent paintings are the result of spending a lot of time analysing the image which gave me the urge to paint the subject in the first place. The result is capturing the essence, the feeling, the layout, the colours, balance and design and leaving everything out that would confuse this.
 
-Peter passed away on 12 March 2022. Enquiries about his work are handled by his estate.
+Peter passed away on 12 March 2022. Enquiries about his work are handled by his estate. Proceeds of sales support his widow, [Betty](/portraits/betty).
