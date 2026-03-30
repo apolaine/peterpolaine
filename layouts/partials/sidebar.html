@@ -1,0 +1,37 @@
+<aside class="sidebar" id="sidebar" aria-label="Site navigation">
+  {{ with .Site.Params.artistPhoto }}
+  <a href="/" class="sidebar__portrait-wrap" aria-label="Peter Polaine — Home">
+    <img
+      src="{{ . }}"
+      alt="Peter Polaine"
+      class="sidebar__portrait"
+      width="240"
+      height="300"
+    >
+  </a>
+  {{ end }}
+
+  <a href="/" class="sidebar__name-main">Peter Polaine</a>
+  <span class="sidebar__dates">1942–2022</span>
+
+  <nav class="sidebar__nav">
+    <ul>
+      {{ range .Site.Menus.main }}
+      <li>
+        <a
+          href="{{ .URL }}"
+          class="sidebar__link"
+          {{ if eq $.RelPermalink .URL }}aria-current="page"{{ end }}
+        >{{ .Name }}</a>
+      </li>
+      {{ end }}
+      <li>
+        <a href="/enquire/" class="sidebar__link sidebar__link--enquire">Enquire</a>
+      </li>
+    </ul>
+  </nav>
+
+  {{ with .Site.Params.bioExcerpt }}
+  <p class="sidebar__bio">{{ . }}</p>
+  {{ end }}
+</aside>

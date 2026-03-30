@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {{ partial "seo.html" . }}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet">
+  {{ $css := resources.Get "css/main.css" | fingerprint }}
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}">
+  {{ block "head" . }}{{ end }}
+</head>
+<body>
+  <button class="mobile-nav-toggle" id="nav-toggle" aria-label="Open navigation" aria-expanded="false" aria-controls="sidebar">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="sidebar-scrim" id="sidebar-scrim" aria-hidden="true"></div>
+
+  <div class="site-wrapper">
+    {{ partial "sidebar.html" . }}
+
+    <main class="main-content" id="main">
+      {{ block "main" . }}{{ end }}
+
+      <footer class="site-footer">
+        <span>Peter Polaine, 1942–2022</span>
+        <span>Enquiries: <a href="/enquire/" style="color:inherit;text-decoration:underline;text-underline-offset:3px">contact the estate</a></span>
+      </footer>
+    </main>
+  </div>
+
+  {{ partial "quickview.html" . }}
+
+  {{ $js := resources.Get "js/main.js" | fingerprint }}
+  <script src="{{ $js.RelPermalink }}" defer></script>
+</body>
+</html>

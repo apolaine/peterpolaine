@@ -1,0 +1,69 @@
+{{/*
+  SEO partial — included in <head>
+  Handles: title, description, canonical, OG, Twitter Card
+*/}}
+
+{{/* ---- Title ---- */}}
+{{ $title := cond .IsHome "Peter Polaine" (printf "%s — Peter Polaine" .Title) }}
+<title>{{ $title }}</title>
+
+{{/* ---- Description ---- */}}
+{{/* Priority: frontmatter description > computed from artwork fields > site default */}}
+{{ $desc := "" }}
+{{ if .Description }}
+  {{ $desc = .Description }}
+{{ else if .Params.medium }}
+  {{/* Artwork page — synthesise from known fields */}}
+  {{ $parts := slice .Title .Params.medium }}
+  {{ with .Params.dimensions }}{{ $parts = $parts | append . }}{{ end }}
+  {{ with .Params.year }}{{ $parts = $parts | append (string .) }}{{ end }}
+  {{ $desc = printf "%s. By Peter Polaine, 1942–2022." (delimit $parts ", ") }}
+{{ else }}
+  {{ $desc = .Site.Params.description }}
+{{ end }}
+<meta name="description" content="{{ $desc }}">
+
+{{/* ---- Canonical ---- */}}
+<link rel="canonical" href="{{ .Permalink }}">
+
+{{/* ---- OG Image ---- */}}
+{{/* For artwork singles: generate a 1200×630 crop from the page resource.
+     For everything else: fall back to the artist portrait. */}}
+{{ $ogImage := "" }}
+{{ $ogW     := 1200 }}
+{{ $ogH     := 630 }}
+{{ $artImg  := .Resources.GetMatch "*.{jpg,jpeg,png,webp}" }}
+{{ if $artImg }}
+  {{ $og     := $artImg.Fill "1200x630 q85 webp" }}
+  {{ $ogImage = $og.Permalink }}
+  {{ $ogW     = $og.Width }}
+  {{ $ogH     = $og.Height }}
+{{ else }}
+  {{ $ogImage = "/images/peter_about.jpg" | absURL }}
+{{ end }}
+
+{{/* ---- Open Graph ---- */}}
+<meta property="og:site_name" content="Peter Polaine">
+<meta property="og:locale"    content="en_GB">
+<meta property="og:type"      content="{{ if .IsHome }}website{{ else }}article{{ end }}">
+<meta property="og:title"     content="{{ $title }}">
+<meta property="og:description" content="{{ $desc }}">
+<meta property="og:url"       content="{{ .Permalink }}">
+<meta property="og:image"     content="{{ $ogImage }}">
+<meta property="og:image:width"  content="{{ $ogW }}">
+<meta property="og:image:height" content="{{ $ogH }}">
+<meta property="og:image:alt" content="{{ if $artImg }}{{ .Title }} — Peter Polaine{{ else }}Peter Polaine{{ end }}">
+
+{{/* ---- Twitter Card ---- */}}
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="{{ $title }}">
+<meta name="twitter:description" content="{{ $desc }}">
+<meta name="twitter:image"       content="{{ $ogImage }}">
+<meta name="twitter:image:alt"   content="{{ if $artImg }}{{ .Title }} — Peter Polaine{{ else }}Peter Polaine{{ end }}">
+
+{{/* ---- Article metadata (artwork singles) ---- */}}
+{{ if and (not .IsHome) (not .IsSection) .Params.medium }}
+{{ with .Params.year }}
+<meta property="article:published_time" content="{{ . }}-01-01T00:00:00Z">
+{{ end }}
+{{ end }}

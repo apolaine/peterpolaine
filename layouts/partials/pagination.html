@@ -1,0 +1,29 @@
+{{ if gt .TotalPages 1 }}
+<nav class="pagination" aria-label="Gallery pages">
+  {{ if .HasPrev }}
+  <a href="{{ .Prev.URL }}" class="pagination__btn" rel="prev">
+    <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 12L6 8l4-4"/></svg>
+    Previous
+  </a>
+  {{ else }}
+  <span class="pagination__btn" aria-disabled="true">
+    <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 12L6 8l4-4"/></svg>
+    Previous
+  </span>
+  {{ end }}
+
+  <p class="pagination__count"><strong>{{ .PageNumber }}</strong> / {{ .TotalPages }}</p>
+
+  {{ if .HasNext }}
+  <a href="{{ .Next.URL }}" class="pagination__btn" rel="next">
+    Next
+    <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 12l4-4-4-4"/></svg>
+  </a>
+  {{ else }}
+  <span class="pagination__btn" aria-disabled="true">
+    Next
+    <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 12l4-4-4-4"/></svg>
+  </span>
+  {{ end }}
+</nav>
+{{ end }}

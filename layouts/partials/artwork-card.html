@@ -1,0 +1,50 @@
+{{ $img := .Resources.GetMatch "*.{jpg,jpeg,png,webp}" }}
+{{ if $img }}
+  {{ $thumb := $img.Fill "420x560 q85 webp" }}
+  {{ $full  := $img.Fit  "1200x1600 q90 webp" }}
+<article
+  class="artwork-card{{ if .Draft }} artwork-card--draft{{ end }}{{ if eq .Params.status "sold" }} artwork-card--sold{{ end }}"
+  data-title="{{ .Title }}"
+  data-href="{{ .RelPermalink }}"
+  data-image-src="{{ $full.RelPermalink }}"
+  data-medium="{{ .Params.medium }}"
+  data-dimensions="{{ .Params.dimensions }}"
+  data-year="{{ with .Params.year }}{{ . }}{{ end }}"
+  {{ with .Params.edition_size }}data-edition="{{ . }}"{{ end }}
+  {{/* data-remaining hidden until prints_remaining is populated */}}
+  {{ with .Params.price }}data-price="{{ . }}"{{ end }}
+  data-section="{{ .Section | title }}"
+  data-section-url="{{ .Section | relURL }}"
+>
+  <div class="artwork-card__image-wrap">
+    <img
+      src="{{ $thumb.RelPermalink }}"
+      alt="{{ .Title }}"
+      loading="lazy"
+      width="{{ $thumb.Width }}"
+      height="{{ $thumb.Height }}"
+      class="artwork-card__image"
+    >
+    <div class="artwork-card__overlay">
+      <button class="artwork-card__quickview-btn" type="button">View</button>
+    </div>
+    {{ if eq .Params.status "sold" }}
+    <div class="artwork-card__sold-badge" aria-label="Sold">Sold</div>
+    {{ end }}
+  </div>
+
+  <div class="artwork-card__meta">
+    <h3 class="artwork-card__title">{{ .Title }}</h3>
+    <p class="artwork-card__detail">
+      {{- .Params.medium -}}
+      {{- if .Params.edition_note }} · {{ .Params.edition_note -}}
+      {{- else if .Params.edition_size }} · Edition of {{ .Params.edition_size }}{{ end -}}
+    </p>
+    {{ if .Params.price }}
+    <p class="artwork-card__price">£{{ .Params.price | lang.FormatNumber 0 }}</p>
+    {{ else if ne .Params.status "sold" }}
+    <p class="artwork-card__price" style="color:var(--c-text-muted)">Price on application</p>
+    {{ end }}
+  </div>
+</article>
+{{ end }}

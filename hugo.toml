@@ -1,0 +1,36 @@
+baseURL = "https://www.peterpolaine.com/"
+languageCode = "en-gb"
+title = "Peter Polaine"
+
+[pagination]
+  pagerSize = 16
+
+[params]
+  description = "The work of Peter Polaine — printmaker, painter, and portraitist. 1942–2022."
+  artistPhoto = "/images/peter_about.jpg"
+  bioExcerpt = "Printmaker and painter, trained at Walthamstow School of Art. Woodcuts collected across Germany; exhibited at the Royal Academy."
+  statement = "*From a dead piece of wood, a new life is made.*"
+  formspreeEndpoint = "https://formspree.io/f/xreoqrqy"
+
+[[params.homeSections]]
+  section = "prints"
+[[params.homeSections]]
+  section = "paintings"
+[[params.homeSections]]
+  section = "portraits"
+
+[[menus.main]]
+  name = "Prints"
+  url = "/prints/"
+  weight = 1
+[[menus.main]]
+  name = "Paintings"
+  url = "/paintings/"
+  weight = 2
+[[menus.main]]
+  name = "Portraits"
+  url = "/portraits/"
+  weight = 3
+
+[markup.goldmark.renderer]
+  unsafe = true

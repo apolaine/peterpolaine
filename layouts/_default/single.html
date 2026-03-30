@@ -1,0 +1,92 @@
+{{ define "main" }}
+{{ $img := .Resources.GetMatch "*.{jpg,jpeg,png,webp}" }}
+{{ if $img }}
+  {{ $display := $img.Fit "1400x1800 q92 webp" }}
+
+<div class="artwork-single">
+  <!-- Left: image -->
+  <div class="artwork-single__image-wrap">
+    <img
+      src="{{ $display.RelPermalink }}"
+      alt="{{ .Title }}"
+      class="artwork-single__image"
+      width="{{ $display.Width }}"
+      height="{{ $display.Height }}"
+    >
+
+    <nav class="artwork-single__nav" aria-label="Browse artworks">
+      {{ with .PrevInSection }}
+      <a href="{{ .RelPermalink }}" class="artwork-single__nav-link">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 12L6 8l4-4"/></svg>
+        Previous
+      </a>
+      {{ else }}<span></span>{{ end }}
+
+      <a href="{{ .Section | relURL }}" class="artwork-single__nav-link" style="color:var(--c-text-muted)">
+        All {{ .Section | title }}
+      </a>
+
+      {{ with .NextInSection }}
+      <a href="{{ .RelPermalink }}" class="artwork-single__nav-link">
+        Next
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 12l4-4-4-4"/></svg>
+      </a>
+      {{ else }}<span></span>{{ end }}
+    </nav>
+  </div>
+
+  <!-- Right: info panel -->
+  <aside class="artwork-info">
+    <a href="{{ .Section | relURL }}" class="artwork-info__section-link">{{ .Section | title }}</a>
+
+    <h1 class="artwork-info__title">{{ .Title }}</h1>
+    {{ with .Params.year }}<p class="artwork-info__year">{{ . }}</p>{{ end }}
+
+    <dl class="artwork-meta">
+      {{ with .Params.medium }}
+      <dt>Medium</dt><dd>{{ . }}</dd>
+      {{ end }}
+      {{ with .Params.dimensions }}
+      <dt>Dimensions</dt><dd>{{ . }}</dd>
+      {{ end }}
+    </dl>
+
+    {{ if or .Params.edition_size .Params.edition_note }}
+    <div class="artwork-edition">
+      {{ if .Params.edition_note }}
+      <p class="artwork-edition__line">{{ .Params.edition_note }}</p>
+      {{ else }}
+      <p class="artwork-edition__line">Edition of {{ .Params.edition_size }}</p>
+      {{ end }}
+      {{/* prints_remaining hidden until data is populated
+      {{ with .Params.prints_remaining }}
+      <p class="artwork-edition__remaining">{{ . }} {{ if eq . 1 }}print{{ else }}prints{{ end }} remaining</p>
+      {{ end }}
+      */}}
+    </div>
+    {{ end }}
+
+    <div class="artwork-price">
+      <p class="artwork-price__label">Price (unframed)</p>
+      {{ if .Params.price }}
+        <p class="artwork-price__amount">£{{ .Params.price | lang.FormatNumber 0 }}</p>
+      {{ else if eq .Params.status "sold" }}
+        <p class="artwork-price__poa">Sold</p>
+      {{ else }}
+        <p class="artwork-price__poa">Price on application</p>
+      {{ end }}
+    </div>
+
+    {{ if ne .Params.status "sold" }}
+    <a href="/enquire/?artwork={{ .Title | urlize }}" class="btn-enquire">
+      Enquire about this work
+    </a>
+    {{ end }}
+
+    {{ with .Content }}
+    <div class="artwork-description">{{ . }}</div>
+    {{ end }}
+  </aside>
+</div>
+{{ end }}
+{{ end }}

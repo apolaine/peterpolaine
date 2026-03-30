@@ -1,0 +1,48 @@
+{{ define "main" }}
+<header class="section-header">
+  <h1 class="section-header__title">{{ .Title }}</h1>
+  {{ with .Description }}<p class="section-header__description">{{ . }}</p>{{ end }}
+</header>
+
+<div class="about-layout">
+  <div class="about-body">
+    {{ .Content }}
+  </div>
+
+  <aside>
+    {{ with .Params.photos }}
+    {{ range . }}
+    <figure style="margin-bottom: var(--sp-8)">
+      <img src="{{ .src }}" alt="{{ .alt }}" class="about-aside__image">
+      {{ with .caption }}<figcaption class="about-aside__caption">{{ . }}</figcaption>{{ end }}
+    </figure>
+    {{ end }}
+    {{ end }}
+  </aside>
+</div>
+
+<div class="home-sections">
+  {{ range .Site.Params.homeSections }}
+  {{ $section := site.GetPage .section }}
+  {{ if $section }}
+  <section class="home-section">
+    <h2 class="home-section-title">{{ $section.Title }}</h2>
+
+    {{ $pages := where $section.Pages "Draft" false }}
+    {{ $featured := where $pages "Params.featured" true }}
+    {{ $works := cond (gt (len $featured) 0) $featured $pages }}
+    {{ $works = first 5 $works }}
+
+    <div class="gallery-grid section--{{ .section }}">
+      {{ range $works }}{{ partial "artwork-card.html" . }}{{ end }}
+    </div>
+
+    <a href="{{ $section.RelPermalink }}" class="home-section-link">
+      View all {{ $section.Title }}
+      <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+    </a>
+  </section>
+  {{ end }}
+  {{ end }}
+</div>
+{{ end }}

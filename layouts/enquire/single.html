@@ -1,0 +1,46 @@
+{{ define "main" }}
+<div class="enquire-layout">
+  <header class="section-header" style="margin-bottom: var(--sp-8)">
+    <p class="section-header__eyebrow">Peter Polaine</p>
+    <h1 class="section-header__title">Enquire</h1>
+    <p class="section-header__description">
+      To enquire about a work, please complete the form below and the estate will be in touch.
+    </p>
+  </header>
+
+  <div id="enquiry-artwork-display" style="display:none" class="enquire-context">
+    Enquiry regarding: <strong id="enquiry-artwork-name"></strong>
+  </div>
+
+  <form
+    id="enquire-form"
+    action="{{ .Site.Params.formspreeEndpoint }}"
+    method="POST"
+  >
+    <input type="hidden" name="artwork" id="enquiry-artwork">
+
+    <div class="form-group">
+      <label class="form-label" for="name">Your name</label>
+      <input class="form-input" type="text" id="name" name="name" required autocomplete="name">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="email">Email address</label>
+      <input class="form-input" type="email" id="email" name="email" required autocomplete="email">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="artwork-title">Artwork (if applicable)</label>
+      <input class="form-input" type="text" id="artwork-title" name="artwork_title" placeholder="e.g. Billie Holiday">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="message">Message</label>
+      <textarea class="form-textarea" id="message" name="message" required rows="6"></textarea>
+    </div>
+
+    <button class="form-submit" type="submit" id="enquire-submit">Send Enquiry</button>
+    <p class="form-status" id="form-status" aria-live="polite"></p>
+  </form>
+</div>
+{{ end }}

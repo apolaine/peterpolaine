@@ -1,0 +1,11 @@
+public/
+resources/_gen/
+.hugo_build.lock
+.DS_Store
+**/.DS_Store
+.obsidian/
+.claude/
+node_modules/
+.env
+.env.*
+*.log

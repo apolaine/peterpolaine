@@ -1,0 +1,22 @@
+{{ define "main" }}
+<header class="section-header">
+  <p class="section-header__eyebrow">Peter Polaine</p>
+  <h1 class="section-header__title">{{ .Title }}</h1>
+  {{ with .Description }}<p class="section-header__description">{{ . }}</p>{{ end }}
+</header>
+
+{{ with .Params.quote }}
+<blockquote class="section-quote">
+  <p>{{ . }}</p>
+  <cite>— Peter Polaine</cite>
+</blockquote>
+{{ end }}
+
+{{ $paginator := .Paginate (where .Pages "Draft" false) }}
+
+<div class="gallery-grid section--{{ .Section }}">
+  {{ range $paginator.Pages }}{{ partial "artwork-card.html" . }}{{ end }}
+</div>
+
+{{ partial "pagination.html" $paginator }}
+{{ end }}
