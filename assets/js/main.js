@@ -38,17 +38,20 @@
   if (!dialog) return;
 
   const qv = {
-    image:        dialog.querySelector('.quickview__image'),
-    title:        dialog.querySelector('.quickview__title'),
-    section:      dialog.querySelector('.quickview__section-link'),
-    medium:       dialog.querySelector('[data-qv="medium"]'),
-    dimensions:   dialog.querySelector('[data-qv="dimensions"]'),
-    year:         dialog.querySelector('[data-qv="year"]'),
-    edition:      dialog.querySelector('[data-qv="edition"]'),
-    editionRows:  dialog.querySelectorAll('.qv-edition-row'),
-    price:        dialog.querySelector('.quickview__price'),
-    link:         dialog.querySelector('.quickview__full-link'),
-    close:        dialog.querySelector('.quickview__close'),
+    image:         dialog.querySelector('.quickview__image'),
+    title:         dialog.querySelector('.quickview__title'),
+    section:       dialog.querySelector('.quickview__section-link'),
+    medium:        dialog.querySelector('[data-qv="medium"]'),
+    mediumRows:    dialog.querySelectorAll('.qv-medium-row'),
+    dimensions:    dialog.querySelector('[data-qv="dimensions"]'),
+    dimensionRows: dialog.querySelectorAll('.qv-dimensions-row'),
+    year:          dialog.querySelector('[data-qv="year"]'),
+    yearRows:      dialog.querySelectorAll('.qv-year-row'),
+    edition:       dialog.querySelector('[data-qv="edition"]'),
+    editionRows:   dialog.querySelectorAll('.qv-edition-row'),
+    price:         dialog.querySelector('.quickview__price'),
+    link:          dialog.querySelector('.quickview__full-link'),
+    close:         dialog.querySelector('.quickview__close'),
   };
 
   function openQuickview(card) {
@@ -56,9 +59,18 @@
     if (qv.image)      { qv.image.src = d.imageSrc || ''; qv.image.alt = d.title || ''; }
     if (qv.title)        qv.title.textContent      = d.title      || '';
     if (qv.section)    { qv.section.textContent    = d.section    || ''; qv.section.href = d.sectionUrl || '#'; }
-    if (qv.medium)       qv.medium.textContent     = d.medium     || '—';
-    if (qv.dimensions)   qv.dimensions.textContent = d.dimensions || '—';
-    if (qv.year)         qv.year.textContent       = d.year       || '—';
+    if (qv.medium) {
+      qv.medium.textContent = d.medium || '';
+      qv.mediumRows.forEach(el => el.style.display = d.medium ? '' : 'none');
+    }
+    if (qv.dimensions) {
+      qv.dimensions.textContent = d.dimensions || '';
+      qv.dimensionRows.forEach(el => el.style.display = d.dimensions ? '' : 'none');
+    }
+    if (qv.year) {
+      qv.year.textContent = d.year || '';
+      qv.yearRows.forEach(el => el.style.display = d.year ? '' : 'none');
+    }
 
     // Edition: show Artist's Proof note, numbered edition, or hide row entirely
     if (qv.edition) {
