@@ -5,10 +5,10 @@ date: 2025-01-01
 photos:
   - src: "/images/peter_about.jpg"
     alt: "Peter Polaine"
-    caption: "Peter Polaine in his studio"
+    caption: "Peter Polaine in Berlin"
   - src: "/images/peter_withaung.jpg"
-    alt: "Peter Polaine with Aung San Suu Kyi"
-    caption: "With Aung San Suu Kyi"
+    alt: "Peter Polaine at the printing press inspecting the Free Aung San Suu Kyi print"
+    caption: "Peter in the studio inspecting the Aung San Suu Kyi pring"
   - src: "/images/peter_selfportrait.jpg"
     alt: "Self portrait"
     caption: "Self portrait"
@@ -19,6 +19,8 @@ Peter Polaine was born in London and trained at Walthamstow School of Art for fi
 He exhibited in several London galleries including the Royal Academy, and exhibited frequently in East Anglian galleries. In Germany he developed a strong following of private collectors of his woodcuts.
 
 His printmaking and painting ran alongside each other throughout his working life. He was influenced by the German Expressionists, especially Die Brücke and Der Blaue Reiter.
+
+Peter passed away on 12 March 2022. Enquiries about his work and purchases are handled by his estate. Proceeds of sales support his widow, [Betty](/portraits/betty).
 
 ## Printmaking
 
@@ -32,4 +34,3 @@ His printmaking and painting ran alongside each other throughout his working lif
 
 > I have found over a period of time when painting that the first stages had been nearer to what I wanted to achieve, which is of course a moving target. These recent paintings are the result of spending a lot of time analysing the image which gave me the urge to paint the subject in the first place. The result is capturing the essence, the feeling, the layout, the colours, balance and design and leaving everything out that would confuse this.
 
-Peter passed away on 12 March 2022. Enquiries about his work are handled by his estate. Proceeds of sales support his widow, [Betty](/portraits/betty).
