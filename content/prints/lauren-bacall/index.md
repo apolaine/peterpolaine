@@ -7,7 +7,7 @@ description: ""
 medium: "Woodcut"
 dimensions: "412 × 280 mm"
 status: "available"
-price: 226
+price: 225
 edition_size: 20
 prints_remaining:
 featured: false

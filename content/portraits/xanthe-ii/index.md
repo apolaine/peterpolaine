@@ -1,5 +1,5 @@
 ---
-title: "Xanthe Ii"
+title: "Xanthe II"
 year:
 draft: false
 date: 2025-01-01

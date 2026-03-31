@@ -7,7 +7,7 @@ description: ""
 medium: "Woodcut"
 dimensions: "330 × 240 mm"
 status: "available"
-price: 219
+price: 220
 edition_size:
 prints_remaining:
 edition_note: "Artist's Proof"

@@ -7,7 +7,7 @@ description: ""
 medium: "Woodcut"
 dimensions: "209 × 400 mm"
 status: "available"
-price: 211
+price: 210
 edition_size:
 prints_remaining:
 edition_note: "Artist's Proof"
