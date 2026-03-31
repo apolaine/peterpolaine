@@ -75,9 +75,15 @@
     }
 
     if (qv.price) {
-      qv.price.textContent = d.price
-        ? `£${Number(d.price).toLocaleString('en-GB')}`
-        : 'Contact for price';
+      if (d.price) {
+        qv.price.textContent = `£${Number(d.price).toLocaleString('en-GB')}`;
+      } else if (d.status === 'sold') {
+        qv.price.textContent = d.section === 'Prints' ? 'Sold out' : 'Sold';
+      } else if (d.status === 'private collection') {
+        qv.price.textContent = 'In private collection';
+      } else {
+        qv.price.textContent = 'Contact for price';
+      }
     }
     if (qv.link) qv.link.href = d.href || '#';
     dialog.showModal();

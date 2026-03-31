@@ -14,6 +14,7 @@
   {{ with .Params.edition_size }}data-edition="{{ . }}"{{ end }}
   {{/* data-remaining hidden until prints_remaining is populated */}}
   {{ with .Params.price }}data-price="{{ . }}"{{ end }}
+  data-status="{{ .Params.status }}"
   data-section="{{ .Section | title }}"
   data-section-url="{{ .Section | relURL }}"
 >
