@@ -1,6 +1,6 @@
 ---
 title: "Img 2734"
-year:
+# year:
 draft: false
 date: 2025-01-01
 description: ""

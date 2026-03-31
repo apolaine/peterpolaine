@@ -1,6 +1,6 @@
 ---
 title: "Groucho Marx"
-year:
+# year:
 draft: false
 date: 2025-01-01
 description: ""

@@ -1,6 +1,6 @@
 ---
 title: "The Laughing Fox"
-year:
+# year:
 draft: false
 date: 2025-01-01
 description: ""
