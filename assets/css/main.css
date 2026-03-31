@@ -2,8 +2,6 @@
    PETER POLAINE — DESIGN SYSTEM
    ============================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Instrument+Sans:wght@400;500&display=swap');
-
 /* --------------------------------------------
    DESIGN TOKENS
    -------------------------------------------- */
@@ -11,10 +9,11 @@
   /* Colour — OKLCH for perceptual uniformity */
   --c-bg:            oklch(98.5% 0.005 243);
   --c-bg-sidebar:    oklch(96.5% 0.012 243);
-  --c-surface:       oklch(100% 0 0);
+  --c-bg-subtle:     oklch(95.5% 0.008 243);  /* panel backgrounds, quickview image well */
+  --c-surface:       oklch(99.8% 0.003 243);  /* forms, dialog — faint hue tint, not pure white */
   --c-text:          oklch(21% 0.018 255);
-  --c-text-muted:    oklch(52% 0.018 250);
-  --c-text-faint:    oklch(72% 0.012 248);
+  --c-text-muted:    oklch(48% 0.018 250);    /* was 52% — nudged for WCAG AA at small sizes */
+  --c-text-faint:    oklch(55% 0.010 248);    /* was 72% (failed ~2.6:1) — now ~4.5:1 */
   --c-accent:        oklch(75% 0.104 243);   /* cornflower blue — Delphiniums #71b7ec */
   --c-accent-deep:   oklch(64% 0.147 251);   /* vivid blue — Delphiniums #3a8ee0 */
   --c-accent-subtle: oklch(93% 0.020 246);   /* pale wash — Delphiniums #dce8f3 */
@@ -50,11 +49,11 @@
   --dur-base: 240ms;
   --dur-slow: 380ms;
 
-  /* Shadows (blue-tinted) */
-  --shadow-sm: 0 1px 3px oklch(20% 0.02 230 / 0.07);
-  --shadow-md: 0 4px 16px oklch(20% 0.02 230 / 0.09), 0 1px 4px oklch(20% 0.02 230 / 0.05);
-  --shadow-lg: 0 16px 48px oklch(20% 0.02 230 / 0.13), 0 4px 12px oklch(20% 0.02 230 / 0.07);
-  --shadow-xl: 0 32px 80px oklch(20% 0.02 230 / 0.18), 0 8px 24px oklch(20% 0.02 230 / 0.09);
+  /* Shadows (blue-tinted, hue 243 to match system) */
+  --shadow-sm: 0 1px 3px oklch(20% 0.02 243 / 0.07);
+  --shadow-md: 0 4px 16px oklch(20% 0.02 243 / 0.09), 0 1px 4px oklch(20% 0.02 243 / 0.05);
+  --shadow-lg: 0 16px 48px oklch(20% 0.02 243 / 0.13), 0 4px 12px oklch(20% 0.02 243 / 0.07);
+  --shadow-xl: 0 32px 80px oklch(20% 0.02 243 / 0.18), 0 8px 24px oklch(20% 0.02 243 / 0.09);
 }
 
 /* --------------------------------------------
@@ -76,6 +75,18 @@ body {
 img { display: block; max-width: 100%; height: auto; }
 a { color: inherit; text-decoration: none; }
 ul, ol { list-style: none; }
+
+/* Global focus-visible — single consistent keyboard indicator throughout the site */
+:focus-visible {
+  outline: 2px solid var(--c-accent-deep);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+/* Form inputs use border-color for focus — suppress the outline duplicate */
+.form-input:focus-visible,
+.form-textarea:focus-visible {
+  outline: none;
+}
 
 /* Prose links — applies inside content areas only, not nav/UI */
 .about-body a,
@@ -292,6 +303,7 @@ h1, h2, h3, h4 { font-family: var(--f-display); font-weight: 400; line-height: 1
   background: var(--c-surface);
   color: var(--c-text);
   padding: var(--sp-2) var(--sp-4);
+  min-height: 44px;   /* touch target */
   font-size: var(--t-xs);
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -430,9 +442,13 @@ h1, h2, h3, h4 { font-family: var(--f-display); font-weight: 400; line-height: 1
   display: flex;
   align-items: center;
   gap: var(--sp-2);
+  padding: var(--sp-3) 0;   /* touch target height */
+  min-height: 44px;
   transition: color var(--dur-fast) var(--ease-out);
 }
 .artwork-single__nav-link:hover { color: var(--c-text); }
+/* "All Prints" centre link — muted without inline style */
+.artwork-single__nav-section { color: var(--c-text-muted); }
 .artwork-single__nav-link svg {
   width: 14px; height: 14px;
   stroke: currentColor; fill: none;
@@ -578,9 +594,9 @@ h1, h2, h3, h4 { font-family: var(--f-display); font-weight: 400; line-height: 1
 .quickview__close {
   position: absolute;
   top: var(--sp-4); right: var(--sp-4);
-  width: 36px; height: 36px;
+  width: 44px; height: 44px;   /* was 36×36 — touch target minimum */
   display: flex; align-items: center; justify-content: center;
-  background: oklch(97% 0 0 / 0.9);
+  background: oklch(from var(--c-surface) l c h / 0.9);
   color: var(--c-text);
   z-index: 10;
   backdrop-filter: blur(4px);
@@ -601,7 +617,7 @@ h1, h2, h3, h4 { font-family: var(--f-display); font-weight: 400; line-height: 1
 }
 
 .quickview__image-wrap {
-  background: oklch(95.5% 0.005 225);
+  background: var(--c-bg-subtle);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -728,14 +744,15 @@ h1, h2, h3, h4 { font-family: var(--f-display); font-weight: 400; line-height: 1
   display: inline-flex;
   align-items: center;
   gap: var(--sp-2);
-  transition: gap var(--dur-fast) var(--ease-out);
+  transition: color var(--dur-fast) var(--ease-out);
 }
-.home-section-link:hover { gap: var(--sp-3); }
 .home-section-link svg {
   width: 13px; height: 13px;
   stroke: currentColor; fill: none;
   stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+  transition: transform var(--dur-fast) var(--ease-out);
 }
+.home-section-link:hover svg { transform: translateX(4px); }
 
 /* --------------------------------------------
    ABOUT PAGE
@@ -817,10 +834,10 @@ h1, h2, h3, h4 { font-family: var(--f-display); font-weight: 400; line-height: 1
   background: var(--c-surface);
   border: 1px solid var(--c-border);
   border-radius: 0;
-  outline: none;
   -webkit-appearance: none;
   transition: border-color var(--dur-fast) var(--ease-out);
 }
+/* Focus: border-color change is the visual signal; outline suppressed by :focus-visible rule above */
 .form-input:focus,
 .form-textarea:focus { border-color: var(--c-accent-deep); }
 .form-textarea { min-height: 140px; resize: vertical; }
@@ -1030,4 +1047,35 @@ h1, h2, h3, h4 { font-family: var(--f-display); font-weight: 400; line-height: 1
 
 .form-status--error {
   color: oklch(45% 0.15 25);   /* muted red */
+}
+
+/* Enquire page — section header spacing without inline style */
+.enquire-layout .section-header { margin-bottom: var(--sp-8); }
+
+/* Artwork card price-on-application — replaces inline style */
+.artwork-card__price--poa { color: var(--c-text-muted); }
+
+/* Footer enquire link — replaces inline style */
+.site-footer__link {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* --------------------------------------------
+   REDUCED MOTION
+   -------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  /* Prevent layout/composite transforms from running */
+  .artwork-card:hover .artwork-card__image {
+    transform: none;
+    filter: none;
+  }
+  .home-section-link:hover svg { transform: none; }
+  .sidebar__portrait-wrap:hover .sidebar__portrait { filter: grayscale(15%); }
 }

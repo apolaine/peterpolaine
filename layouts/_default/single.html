@@ -1,18 +1,19 @@
 {{ define "main" }}
 {{ $img := .Resources.GetMatch "*.{jpg,jpeg,png,webp}" }}
-{{ if $img }}
-  {{ $display := $img.Fit "1400x1800 q92 webp" }}
 
 <div class="artwork-single">
   <!-- Left: image -->
   <div class="artwork-single__image-wrap">
-    <img
-      src="{{ $display.RelPermalink }}"
-      alt="{{ .Title }}"
-      class="artwork-single__image"
-      width="{{ $display.Width }}"
-      height="{{ $display.Height }}"
-    >
+    {{ if $img }}
+      {{ $display := $img.Fit "1400x1800 q92 webp" }}
+      <img
+        src="{{ $display.RelPermalink }}"
+        alt="{{ .Title }}"
+        class="artwork-single__image"
+        width="{{ $display.Width }}"
+        height="{{ $display.Height }}"
+      >
+    {{ end }}
 
     <nav class="artwork-single__nav" aria-label="Browse artworks">
       {{ with .PrevInSection }}
@@ -22,7 +23,7 @@
       </a>
       {{ else }}<span></span>{{ end }}
 
-      <a href="{{ .Section | relURL }}" class="artwork-single__nav-link" style="color:var(--c-text-muted)">
+      <a href="{{ .Section | relURL }}" class="artwork-single__nav-link artwork-single__nav-section">
         All {{ .Section | title }}
       </a>
 
@@ -88,5 +89,4 @@
     {{ end }}
   </aside>
 </div>
-{{ end }}
 {{ end }}

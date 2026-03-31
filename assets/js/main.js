@@ -38,16 +38,17 @@
   if (!dialog) return;
 
   const qv = {
-    image:      dialog.querySelector('.quickview__image'),
-    title:      dialog.querySelector('.quickview__title'),
-    section:    dialog.querySelector('.quickview__section-link'),
-    medium:     dialog.querySelector('[data-qv="medium"]'),
-    dimensions: dialog.querySelector('[data-qv="dimensions"]'),
-    year:       dialog.querySelector('[data-qv="year"]'),
-    edition:    dialog.querySelector('[data-qv="edition"]'),
-    price:      dialog.querySelector('.quickview__price'),
-    link:       dialog.querySelector('.quickview__full-link'),
-    close:      dialog.querySelector('.quickview__close'),
+    image:        dialog.querySelector('.quickview__image'),
+    title:        dialog.querySelector('.quickview__title'),
+    section:      dialog.querySelector('.quickview__section-link'),
+    medium:       dialog.querySelector('[data-qv="medium"]'),
+    dimensions:   dialog.querySelector('[data-qv="dimensions"]'),
+    year:         dialog.querySelector('[data-qv="year"]'),
+    edition:      dialog.querySelector('[data-qv="edition"]'),
+    editionRows:  dialog.querySelectorAll('.qv-edition-row'),
+    price:        dialog.querySelector('.quickview__price'),
+    link:         dialog.querySelector('.quickview__full-link'),
+    close:        dialog.querySelector('.quickview__close'),
   };
 
   function openQuickview(card) {
@@ -58,11 +59,21 @@
     if (qv.medium)       qv.medium.textContent     = d.medium     || '—';
     if (qv.dimensions)   qv.dimensions.textContent = d.dimensions || '—';
     if (qv.year)         qv.year.textContent       = d.year       || '—';
+
+    // Edition: show Artist's Proof note, numbered edition, or hide row entirely
     if (qv.edition) {
-      qv.edition.textContent = d.edition
-        ? `Edition of ${d.edition}${d.remaining ? `, ${d.remaining} remaining` : ''}`
-        : '—';
+      if (d.editionNote) {
+        qv.edition.textContent = d.editionNote;
+        qv.editionRows.forEach(el => el.style.display = '');
+      } else if (d.edition) {
+        qv.edition.textContent = `Edition of ${d.edition}${d.remaining ? `, ${d.remaining} remaining` : ''}`;
+        qv.editionRows.forEach(el => el.style.display = '');
+      } else {
+        // Not a print — hide the edition row entirely
+        qv.editionRows.forEach(el => el.style.display = 'none');
+      }
     }
+
     if (qv.price) {
       qv.price.textContent = d.price
         ? `£${Number(d.price).toLocaleString('en-GB')}`

@@ -10,6 +10,7 @@
   data-medium="{{ .Params.medium }}"
   data-dimensions="{{ .Params.dimensions }}"
   data-year="{{ with .Params.year }}{{ . }}{{ end }}"
+  {{ with .Params.edition_note }}data-edition-note="{{ . }}"{{ end }}
   {{ with .Params.edition_size }}data-edition="{{ . }}"{{ end }}
   {{/* data-remaining hidden until prints_remaining is populated */}}
   {{ with .Params.price }}data-price="{{ . }}"{{ end }}
@@ -43,7 +44,7 @@
     {{ if .Params.price }}
     <p class="artwork-card__price">£{{ .Params.price | lang.FormatNumber 0 }}</p>
     {{ else if ne .Params.status "sold" }}
-    <p class="artwork-card__price" style="color:var(--c-text-muted)">Price on application</p>
+    <p class="artwork-card__price artwork-card__price--poa">Price on application</p>
     {{ end }}
   </div>
 </article>

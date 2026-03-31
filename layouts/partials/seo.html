@@ -66,4 +66,32 @@
 {{ with .Params.year }}
 <meta property="article:published_time" content="{{ . }}-01-01T00:00:00Z">
 {{ end }}
+
+{{/* ---- JSON-LD structured data (schema.org/VisualArtwork) ---- */}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VisualArtwork",
+  "name": {{ .Title | jsonify }},
+  "url": {{ .Permalink | jsonify }},
+  "creator": {
+    "@type": "Person",
+    "name": "Peter Polaine",
+    "birthDate": "1942",
+    "deathDate": "2022",
+    "nationality": "British"
+  }
+  {{ with .Params.medium }},"artMedium": {{ . | jsonify }}{{ end }}
+  {{ with .Params.year }},"dateCreated": {{ string . | jsonify }}{{ end }}
+  {{ if $artImg }},"image": {{ $artImg.Permalink | jsonify }}{{ end }}
+  {{ if .Params.price }}
+  ,"offers": {
+    "@type": "Offer",
+    "price": {{ .Params.price | string | jsonify }},
+    "priceCurrency": "GBP",
+    "availability": "https://schema.org/{{ if eq .Params.status "sold" }}SoldOut{{ else }}InStock{{ end }}"
+  }
+  {{ end }}
+}
+</script>
 {{ end }}
