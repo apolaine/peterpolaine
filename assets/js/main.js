@@ -77,7 +77,7 @@
     if (qv.price) {
       qv.price.textContent = d.price
         ? `£${Number(d.price).toLocaleString('en-GB')}`
-        : 'Price on application';
+        : 'Contact for price';
     }
     if (qv.link) qv.link.href = d.href || '#';
     dialog.showModal();
