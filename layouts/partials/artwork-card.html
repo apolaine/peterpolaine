@@ -3,7 +3,7 @@
   {{ $thumb := $img.Fill "420x560 q85 webp" }}
   {{ $full  := $img.Fit  "1200x1600 q90 webp" }}
 <article
-  class="artwork-card{{ if .Draft }} artwork-card--draft{{ end }}{{ if eq .Params.status "sold" }} artwork-card--sold{{ end }}"
+  class="artwork-card{{ if .Draft }} artwork-card--draft{{ end }}{{ if or (eq .Params.status "sold") (eq .Params.status "private collection") }} artwork-card--sold{{ end }}"
   data-title="{{ .Title }}"
   data-href="{{ .RelPermalink }}"
   data-image-src="{{ $full.RelPermalink }}"
@@ -31,6 +31,8 @@
     </div>
     {{ if eq .Params.status "sold" }}
     <div class="artwork-card__sold-badge" aria-label="Sold">Sold</div>
+    {{ else if eq .Params.status "private collection" }}
+    <div class="artwork-card__sold-badge" aria-label="In private collection">Private collection</div>
     {{ end }}
   </div>
 
@@ -43,8 +45,8 @@
     </p>
     {{ if .Params.price }}
     <p class="artwork-card__price">£{{ .Params.price | lang.FormatNumber 0 }}</p>
-    {{ else if ne .Params.status "sold" }}
-    <p class="artwork-card__price artwork-card__price--poa">Price on application</p>
+    {{ else if not (in (slice "sold" "private collection") .Params.status) }}
+    <p class="artwork-card__price artwork-card__price--poa">Contact for price</p>
     {{ end }}
   </div>
 </article>

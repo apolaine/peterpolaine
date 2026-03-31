@@ -74,12 +74,14 @@
         <p class="artwork-price__amount">£{{ .Params.price | lang.FormatNumber 0 }}</p>
       {{ else if eq .Params.status "sold" }}
         <p class="artwork-price__poa">Sold</p>
+      {{ else if eq .Params.status "private collection" }}
+        <p class="artwork-price__poa">In private collection</p>
       {{ else }}
         <p class="artwork-price__poa">Contact for price</p>
       {{ end }}
     </div>
 
-    {{ if ne .Params.status "sold" }}
+    {{ if not (in (slice "sold" "private collection") .Params.status) }}
     <a href="/enquire/?artwork={{ .Title | urlize }}" class="btn-enquire">
       Enquire about this work
     </a>
