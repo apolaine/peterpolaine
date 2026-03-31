@@ -45,7 +45,7 @@
     </p>
     {{ if .Params.price }}
     <p class="artwork-card__price">£{{ .Params.price | lang.FormatNumber 0 }}</p>
-    {{ else if not (in (slice "sold" "private collection") .Params.status) }}
+    {{ else if and (ne .Params.status "sold") (ne .Params.status "private collection") }}
     <p class="artwork-card__price artwork-card__price--poa">Contact for price</p>
     {{ end }}
   </div>
