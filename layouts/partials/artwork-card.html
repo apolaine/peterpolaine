@@ -31,7 +31,7 @@
       <button class="artwork-card__quickview-btn" type="button">View</button>
     </div>
     {{ if eq .Params.status "sold" }}
-    <div class="artwork-card__sold-badge" aria-label="Sold">Sold</div>
+    <div class="artwork-card__sold-badge" aria-label="{{ if eq .Section "prints" }}Sold out{{ else }}Sold{{ end }}">{{ if eq .Section "prints" }}Sold out{{ else }}Sold{{ end }}</div>
     {{ else if eq .Params.status "private collection" }}
     <div class="artwork-card__sold-badge" aria-label="In private collection">Private collection</div>
     {{ end }}
