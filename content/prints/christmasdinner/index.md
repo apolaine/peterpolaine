@@ -9,6 +9,6 @@ dimensions: "168 × 127 mm"
 status: "available"
 price: 195
 edition_size: 25
-prints_remaining:
+prints_remaining: 0
 featured: false
 ---

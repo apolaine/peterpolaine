@@ -301,10 +301,12 @@ h1, h2, h3, h4 { font-family: var(--f-display); font-weight: 400; line-height: 1
   align-items: flex-end;
   padding: var(--sp-4);
   opacity: 0;
+  pointer-events: none;
   transition: opacity var(--dur-base) var(--ease-out);
   background: linear-gradient(to top, oklch(20% 0.02 230 / 0.38) 0%, transparent 55%);
 }
 .artwork-card:hover .artwork-card__overlay { opacity: 1; }
+.artwork-card__quickview-btn { pointer-events: auto; }
 
 .artwork-card__quickview-btn {
   background: var(--c-surface);
@@ -491,8 +493,9 @@ h1, h2, h3, h4 { font-family: var(--f-display); font-weight: 400; line-height: 1
 /* Metadata key/value */
 .artwork-meta {
   display: grid;
-  grid-template-columns: auto 1fr;
-  gap: var(--sp-2) var(--sp-6);
+  grid-template-columns: max-content 1fr;
+  gap: var(--sp-3) var(--sp-6);
+  align-items: baseline;
   margin-bottom: var(--sp-10);
 }
 .artwork-meta dt {
@@ -665,8 +668,9 @@ h1, h2, h3, h4 { font-family: var(--f-display); font-weight: 400; line-height: 1
 
 .quickview__meta {
   display: grid;
-  grid-template-columns: auto 1fr;
-  gap: var(--sp-2) var(--sp-4);
+  grid-template-columns: max-content 1fr;
+  gap: var(--sp-3) var(--sp-5);
+  align-items: baseline;
   margin-bottom: var(--sp-6);
 }
 .quickview__meta dt {
@@ -718,7 +722,6 @@ h1, h2, h3, h4 { font-family: var(--f-display); font-weight: 400; line-height: 1
 }
 
 .home-sections {
-  border-top: 1px solid var(--c-border);
   padding-top: var(--sp-20);
   margin-top: var(--sp-4);
 }

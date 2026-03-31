@@ -1,5 +1,5 @@
 ---
-title: "L1000066"
+title: "Fishing Boats at Aldeburgh"
 # year:
 draft: false
 date: 2025-01-01

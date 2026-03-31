@@ -9,16 +9,25 @@
     {{ .Content }}
   </div>
 
-  <aside>
+  <aside class="about-aside">
     {{ with .Params.photos }}
     {{ range . }}
-    <figure style="margin-bottom: var(--sp-8)">
+    <figure class="about-aside__photo" style="margin-bottom: var(--sp-8)">
       <img src="{{ .src }}" alt="{{ .alt }}" class="about-aside__image">
       {{ with .caption }}<figcaption class="about-aside__caption">{{ . }}</figcaption>{{ end }}
     </figure>
     {{ end }}
     {{ end }}
   </aside>
+  <script>
+    (function() {
+      var photos = document.querySelectorAll('.about-aside .about-aside__photo');
+      if (photos.length > 1) {
+        var hide = Math.floor(Math.random() * photos.length);
+        photos[hide].style.display = 'none';
+      }
+    })();
+  </script>
 </div>
 
 <div class="home-sections">

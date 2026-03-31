@@ -1,5 +1,5 @@
 ---
-title: "L1000069"
+title: "Girl With Bucket"
 # year:
 draft: false
 date: 2025-01-01

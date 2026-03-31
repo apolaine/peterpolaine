@@ -1,5 +1,5 @@
 ---
-title: "Img 2751"
+title: "Red Anchor"
 # year:
 draft: false
 date: 2025-01-01

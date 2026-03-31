@@ -1,5 +1,5 @@
 ---
-title: "Img 2737"
+title: "Windmill"
 # year:
 draft: false
 date: 2025-01-01
