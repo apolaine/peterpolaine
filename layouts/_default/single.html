@@ -70,12 +70,12 @@
 
     <div class="artwork-price">
       <p class="artwork-price__label">Price (unframed)</p>
-      {{ if .Params.price }}
-        <p class="artwork-price__amount">£{{ .Params.price | lang.FormatNumber 0 }}</p>
-      {{ else if eq .Params.status "sold" }}
+      {{ if eq .Params.status "sold" }}
         <p class="artwork-price__poa">{{ if eq .Section "prints" }}Sold out{{ else }}Sold{{ end }}</p>
       {{ else if eq .Params.status "private collection" }}
         <p class="artwork-price__poa">In private collection</p>
+      {{ else if .Params.price }}
+        <p class="artwork-price__amount">£{{ .Params.price | lang.FormatNumber 0 }}</p>
       {{ else }}
         <p class="artwork-price__poa">Contact for price</p>
       {{ end }}

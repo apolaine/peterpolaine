@@ -87,12 +87,12 @@
     }
 
     if (qv.price) {
-      if (d.price) {
-        qv.price.textContent = `£${Number(d.price).toLocaleString('en-GB')}`;
-      } else if (d.status === 'sold') {
+      if (d.status === 'sold') {
         qv.price.textContent = d.section === 'Prints' ? 'Sold out' : 'Sold';
       } else if (d.status === 'private collection') {
         qv.price.textContent = 'In private collection';
+      } else if (d.price) {
+        qv.price.textContent = `£${Number(d.price).toLocaleString('en-GB')}`;
       } else {
         qv.price.textContent = 'Contact for price';
       }

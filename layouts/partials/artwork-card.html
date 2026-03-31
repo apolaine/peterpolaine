@@ -42,9 +42,12 @@
       {{- if .Params.edition_note }} · {{ .Params.edition_note -}}
       {{- else if .Params.edition_size }} · Edition of {{ .Params.edition_size }}{{ end -}}
     </p>
-    {{ if .Params.price }}
+    {{ if eq .Params.status "sold" }}
+    <p class="artwork-card__price artwork-card__price--poa">{{ if eq .Section "prints" }}Sold out{{ else }}Sold{{ end }}</p>
+    {{ else if eq .Params.status "private collection" }}
+    {{ else if .Params.price }}
     <p class="artwork-card__price">£{{ .Params.price | lang.FormatNumber 0 }}</p>
-    {{ else if and (ne .Params.status "sold") (ne .Params.status "private collection") }}
+    {{ else }}
     <p class="artwork-card__price artwork-card__price--poa">Contact for price</p>
     {{ end }}
   </div>
