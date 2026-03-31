@@ -102,22 +102,47 @@
   }
 
   // Quickview button
-  document.querySelectorAll('.artwork-card__quickview-btn').forEach(btn =>
+  document.querySelectorAll('.artwork-card__quickview-btn').forEach(btn => {
     btn.addEventListener('click', e => {
       e.stopPropagation();
       openQuickview(btn.closest('.artwork-card'));
-    })
-  );
+    });
+  });
 
-  // Click image wrap also opens quickview
-  document.querySelectorAll('.artwork-card__image-wrap').forEach(wrap =>
+  // Click/tap image wrap opens quickview
+  // touchend with scroll-detection ensures reliable iOS tap without blocking scroll
+  document.querySelectorAll('.artwork-card__image-wrap').forEach(wrap => {
+    let touchStartY = 0;
+    wrap.addEventListener('touchstart', e => {
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+    wrap.addEventListener('touchend', e => {
+      const dy = Math.abs(e.changedTouches[0].clientY - touchStartY);
+      if (dy < 8) { // tap, not scroll
+        e.preventDefault();
+        openQuickview(wrap.closest('.artwork-card'));
+      }
+    }, { passive: false });
     wrap.addEventListener('click', () =>
       openQuickview(wrap.closest('.artwork-card'))
-    )
-  );
+    );
+  });
 
   qv.close && qv.close.addEventListener('click', () => dialog.close());
+  dialog.addEventListener('close', () => { if (qv.image) qv.image.src = ''; });
+  // Close on backdrop click (mouse) — e.target === dialog when clicking outside inner content
   dialog.addEventListener('click', e => { if (e.target === dialog) dialog.close(); });
+  // iOS Safari doesn't fire click on ::backdrop tap; use touchend on the dialog element instead
+  let dialogTouchStartX = 0, dialogTouchStartY = 0;
+  dialog.addEventListener('touchstart', e => {
+    dialogTouchStartX = e.touches[0].clientX;
+    dialogTouchStartY = e.touches[0].clientY;
+  }, { passive: true });
+  dialog.addEventListener('touchend', e => {
+    const dx = Math.abs(e.changedTouches[0].clientX - dialogTouchStartX);
+    const dy = Math.abs(e.changedTouches[0].clientY - dialogTouchStartY);
+    if (dx < 8 && dy < 8 && e.target === dialog) dialog.close();
+  }, { passive: true });
 
   /* ---- ENQUIRY FORM ---- */
   const enquireForm = document.getElementById('enquire-form');

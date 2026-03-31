@@ -281,6 +281,7 @@ h1, h2, h3, h4 { font-family: var(--f-display); font-weight: 400; line-height: 1
   background: var(--c-border);
   aspect-ratio: 3/4;
   cursor: pointer;
+  touch-action: manipulation;
 }
 .section--paintings .artwork-card__image-wrap { aspect-ratio: 4/3; }
 
@@ -317,6 +318,7 @@ h1, h2, h3, h4 { font-family: var(--f-display); font-weight: 400; line-height: 1
   font-size: var(--t-xs);
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  touch-action: manipulation;
   transition: background var(--dur-fast) var(--ease-out),
               color var(--dur-fast) var(--ease-out);
 }
@@ -904,9 +906,13 @@ h1, h2, h3, h4 { font-family: var(--f-display); font-weight: 400; line-height: 1
   background: oklch(20% 0.02 230 / 0.3);
   z-index: 99;
   opacity: 0;
+  pointer-events: none;
   transition: opacity var(--dur-base) var(--ease-out);
 }
-.sidebar-scrim.is-visible { opacity: 1; }
+.sidebar-scrim.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
 
 /* --------------------------------------------
    FOOTER
@@ -961,21 +967,59 @@ h1, h2, h3, h4 { font-family: var(--f-display); font-weight: 400; line-height: 1
 
   .about-layout { grid-template-columns: 1fr; }
 
-  .quickview__inner { grid-template-columns: 1fr; }
-  .quickview__image-wrap { height: 55vw; min-height: 240px; }
+  .quickview {
+    max-height: 82vh;
+  }
+  .quickview__inner {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto;
+    height: 82vh;
+    max-height: 82vh;
+  }
+  .quickview__image-wrap {
+    height: auto;
+    min-height: 0;
+    padding: var(--sp-4);
+  }
+  .quickview__image {
+    max-height: 100%;
+  }
   .quickview__details {
     border-left: none;
     border-top: 1px solid var(--c-border);
-    max-height: 50vh;
+    max-height: 44vh;
+    padding: var(--sp-4) var(--sp-5);
+    overflow-y: auto;
+  }
+  .quickview__title {
+    font-size: var(--t-xl);
+    margin-bottom: var(--sp-3);
+  }
+  .quickview__price {
+    font-size: var(--t-xl);
+    margin-top: var(--sp-3);   /* override margin-top: auto — stops price being pushed to bottom of scroll area */
+    margin-bottom: var(--sp-3);
   }
 }
 
 @media (max-width: 480px) {
   .gallery-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--sp-3);
+    grid-template-columns: 1fr;
+    gap: var(--sp-6);
   }
   .section-header__title { font-size: var(--t-3xl); }
+  .main-content { padding-top: var(--sp-12); }
+}
+
+/* Touch devices: always show the quickview overlay button */
+@media (hover: none) {
+  .artwork-card__overlay {
+    opacity: 1;
+    background: linear-gradient(to top, oklch(20% 0.02 230 / 0.42) 0%, transparent 52%);
+  }
+  /* No hover zoom/dim on touch */
+  .artwork-card:hover .artwork-card__image { transform: none; filter: none; }
+  .artwork-card:hover .artwork-card__overlay { opacity: 1; }
 }
 
 /* --------------------------------------------

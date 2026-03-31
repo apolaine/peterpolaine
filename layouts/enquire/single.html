@@ -4,7 +4,7 @@
     <p class="section-header__eyebrow">Peter Polaine</p>
     <h1 class="section-header__title">Enquire</h1>
     <p class="section-header__description">
-      To enquire about a work, please complete the form below. The estate aims to respond within 48 hours.
+      To enquire about a work, please complete the form below. Andy Polaine will get back to you within 3–4 days.
     </p>
   </header>
 
@@ -17,6 +17,7 @@
     action="{{ .Site.Params.formspreeEndpoint }}"
     method="POST"
   >
+    <input type="hidden" name="_subject" value="New message from PeterPolaine.com">
     <input type="hidden" name="artwork" id="enquiry-artwork">
 
     <div class="form-group">
