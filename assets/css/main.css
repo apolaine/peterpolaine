@@ -258,8 +258,8 @@ h1, h2, h3, h4 { font-family: var(--f-display); font-weight: 400; line-height: 1
    -------------------------------------------- */
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 195px), 1fr));
-  gap: var(--sp-4);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+  gap: var(--sp-6);
   margin-bottom: var(--sp-12);
 }
 
